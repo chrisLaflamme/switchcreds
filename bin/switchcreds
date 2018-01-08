@@ -1,5 +1,51 @@
 #!/usr/bin/env ruby
-
 require 'switchcreds'
+require 'colorize'
+require 'optparse'
 
-puts "Things!"
+class ParseOpts
+  def self.banner
+    puts "
+███████╗██╗    ██╗██╗████████╗ ██████╗██╗  ██╗ ██████╗██████╗ ███████╗██████╗ ███████╗
+██╔════╝██║    ██║██║╚══██╔══╝██╔════╝██║  ██║██╔════╝██╔══██╗██╔════╝██╔══██╗██╔════╝
+███████╗██║ █╗ ██║██║   ██║   ██║     ███████║██║     ██████╔╝█████╗  ██║  ██║███████╗
+╚════██║██║███╗██║██║   ██║   ██║     ██╔══██║██║     ██╔══██╗██╔══╝  ██║  ██║╚════██║
+███████║╚███╔███╔╝██║   ██║   ╚██████╗██║  ██║╚██████╗██║  ██║███████╗██████╔╝███████║
+╚══════╝ ╚══╝╚══╝ ╚═╝   ╚═╝    ╚═════╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝╚══════╝╚═════╝ ╚══════╝
+
+".colorize(:green)
+  end
+
+  def self.parse(args)
+    options = {}
+
+    opt_parse = OptionParser.new do |opts|
+      opts.banner = 'Usage: switchcreds -i NAME [options]'
+      opts.on('-v','--version','Prints the current version of switchcreds') do |v|
+        puts SwitchCreds::VERSION.colorize(:default)
+        exit
+      end
+
+      opts.on('-h','--help','Shows help') do
+        banner
+        puts opts
+        exit
+      end
+    end
+
+    opt_parse.parse!(args)
+    if options == {}
+      puts 'Usage: switchcreds [options] (try --help for more info)'.colorize(:default)
+      exit
+    end
+    return options
+  end
+end
+
+options = ParseOpts.parse(ARGV)
+
+if options[:name]
+  puts "Somehow got to line 41"
+else
+  puts "Somehow got to line 43"
+end
