@@ -2,6 +2,7 @@
 require 'switchcreds'
 require 'colorize'
 require 'optparse'
+require 'pp'
 
 class ParseOpts
   def self.banner
@@ -17,10 +18,14 @@ class ParseOpts
   end
 
   def self.parse(args)
+    arg_arragy = args
+
+    arg_arragy.each { |arg| puts arg }
     options = {}
 
     opt_parse = OptionParser.new do |opts|
       opts.banner = "Usage:   switchcreds [config_file_to_switch_to]\nOptions: switchcreds [options]"
+
       opts.on('-v','--version','Prints the current version of switchcreds') do |v|
         puts SwitchCreds::VERSION.colorize(:default)
         exit
@@ -32,8 +37,9 @@ class ParseOpts
         exit
       end
 
-      opts.on('-l','--list','List available AWS credential files') do
+      opts.on('-l','--list','List available AWS credentials files') do |l|
         options[:list] = l
+        banner
       end
 
     end
@@ -50,7 +56,11 @@ end
 options = ParseOpts.parse(ARGV)
 
 if options[:list]
-  puts "Somehow got to line 41"
+  puts "Your available AWS credentials:".colorize(:green)
+  creds = SwitchCreds::get_creds()
+  creds.each do |file|
+    puts "\t#{file}"
+  end
 else
   puts "Somehow got to line 43"
 end
