@@ -1,8 +1,19 @@
 require "switchcreds/version"
+require "os"
 
 module SwitchCreds
   def self.get_creds
-    dir = Dir.entries("/Users/claflamme/.aws")
+    # detect the OS and user to find the .aws directory
+    if OS.mac?
+      $user = Dir.home[7, Dir.home.length].to_s
+    elsif OS.windows?
+      $user = Dir.home[9, Dir.home.length].to_s
+    # when OS.linux?
+      # TODO: build out Linux implentation (other OSs too?)
+    else
+      puts "ERROR:".colorize(:red) + " Neither WINDOWS nor MAC OS detected.\n Unable to proceed."
+    end
+    dir = Dir.entries("/Users/#{$user}/.aws")
     creds = []
     dir.each do |f|
       if f.length > 11 && f[0,12] == "credentials_"
