@@ -11,7 +11,7 @@ class ParseOpts
 ███████╗██║ █╗ ██║██║   ██║   ██║     ███████║██║     ██████╔╝█████╗  ██║  ██║███████╗
 ╚════██║██║███╗██║██║   ██║   ██║     ██╔══██║██║     ██╔══██╗██╔══╝  ██║  ██║╚════██║
 ███████║╚███╔███╔╝██║   ██║   ╚██████╗██║  ██║╚██████╗██║  ██║███████╗██████╔╝███████║
-╚══════╝ ╚══╝╚══╝ ╚═╝   ╚═╝    ╚═════╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝╚══════╝╚═════╝ ╚══════╝
+╚══════╝ ╚══╝╚══╝ ╚═╝   ╚═╝    ╚═════╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝╚══════╝╚═════╝ ╚══════╝#{SwitchCreds::VERSION}
 
 ".colorize(:green)
   end
@@ -20,7 +20,7 @@ class ParseOpts
     options = {}
 
     opt_parse = OptionParser.new do |opts|
-      opts.banner = 'Usage: switchcreds -i NAME [options]'
+      opts.banner = "Usage:   switchcreds [config_file_to_switch_to]\nOptions: switchcreds [options]"
       opts.on('-v','--version','Prints the current version of switchcreds') do |v|
         puts SwitchCreds::VERSION.colorize(:default)
         exit
@@ -31,6 +31,11 @@ class ParseOpts
         puts opts
         exit
       end
+
+      opts.on('-l','--list','List available AWS credential files') do
+        options[:list] = l
+      end
+
     end
 
     opt_parse.parse!(args)
@@ -44,7 +49,7 @@ end
 
 options = ParseOpts.parse(ARGV)
 
-if options[:name]
+if options[:list]
   puts "Somehow got to line 41"
 else
   puts "Somehow got to line 43"

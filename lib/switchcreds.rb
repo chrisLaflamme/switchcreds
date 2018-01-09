@@ -2,15 +2,15 @@ require "switchcreds/version"
 
 module SwitchCreds
   def get_creds
-      dir = Dir.entries("/Users/#{$user}/.aws")
-      creds = []
-      dir.each do |f|
-        if f.length > 11 && f[0,12] == "credentials_"
-          creds.push(f[12, f.length])
-        end
+    dir = Dir.entries("/Users/#{$user}/.aws")
+    creds = []
+    dir.each do |f|
+      if f.length > 11 && f[0,12] == "credentials_"
+        creds.push(f[12, f.length])
       end
-      creds
     end
+    creds
+  end
 
   def switch_creds
     creds = get_creds()
