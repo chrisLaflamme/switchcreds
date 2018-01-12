@@ -50,7 +50,7 @@ class ParseOpts
 
     opt_parse.parse!(args)
     if options == {}
-      puts 'Usage: switchcreds -s (try --help for more info)'.colorize(:default)
+      puts 'Usage: switchcreds -s (try -h, --help for more info)'.colorize(:default)
       exit
     end
     return options
@@ -68,6 +68,5 @@ if options[:list]
 end
 
 if options[:switch]
-  puts "SWITCHING!"
   SwitchCreds::switch_creds
 end
