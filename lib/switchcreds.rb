@@ -23,7 +23,7 @@ module SwitchCreds
     creds
   end
 
-  def switch_creds
+  def self.switch_creds
     creds = get_creds()
     puts "Switch to wat?\n"
 

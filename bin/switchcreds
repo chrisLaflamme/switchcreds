@@ -42,11 +42,15 @@ class ParseOpts
         banner
       end
 
+      opts.on('-s','--switch','Initiate switch logic') do |s|
+        options[:switch] = s
+      end
+
     end
 
     opt_parse.parse!(args)
     if options == {}
-      puts 'Usage: switchcreds [options] (try --help for more info)'.colorize(:default)
+      puts 'Usage: switchcreds -s (try --help for more info)'.colorize(:default)
       exit
     end
     return options
@@ -59,8 +63,11 @@ if options[:list]
   puts "Your available AWS credentials:".colorize(:green)
   creds = SwitchCreds::get_creds()
   creds.each do |file|
-    puts "\t#{file}"
+    puts "\t- #{file}"
   end
-else
-  puts "Somehow got to line 43"
+end
+
+if options[:switch]
+  puts "SWITCHING!"
+  SwitchCreds::switch_creds
 end
