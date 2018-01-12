@@ -1,5 +1,72 @@
 #!/usr/bin/env ruby
-
 require 'switchcreds'
+require 'colorize'
+require 'optparse'
+require 'pp'
 
-puts "Things!"
+class ParseOpts
+  def self.banner
+    puts "
+███████╗██╗    ██╗██╗████████╗ ██████╗██╗  ██╗ ██████╗██████╗ ███████╗██████╗ ███████╗
+██╔════╝██║    ██║██║╚══██╔══╝██╔════╝██║  ██║██╔════╝██╔══██╗██╔════╝██╔══██╗██╔════╝
+███████╗██║ █╗ ██║██║   ██║   ██║     ███████║██║     ██████╔╝█████╗  ██║  ██║███████╗
+╚════██║██║███╗██║██║   ██║   ██║     ██╔══██║██║     ██╔══██╗██╔══╝  ██║  ██║╚════██║
+███████║╚███╔███╔╝██║   ██║   ╚██████╗██║  ██║╚██████╗██║  ██║███████╗██████╔╝███████║
+╚══════╝ ╚══╝╚══╝ ╚═╝   ╚═╝    ╚═════╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝╚══════╝╚═════╝ ╚══════╝#{SwitchCreds::VERSION}
+
+".colorize(:green)
+  end
+
+  def self.parse(args)
+    arg_arragy = args
+
+    arg_arragy.each { |arg| puts arg }
+    options = {}
+
+    opt_parse = OptionParser.new do |opts|
+      opts.banner = "Usage:   switchcreds [config_file_to_switch_to]\nOptions: switchcreds [options]"
+
+      opts.on('-v','--version','Prints the current version of switchcreds') do |v|
+        puts SwitchCreds::VERSION.colorize(:default)
+        exit
+      end
+
+      opts.on('-h','--help','Shows help') do
+        banner
+        puts opts
+        exit
+      end
+
+      opts.on('-l','--list','List available AWS credentials files') do |l|
+        options[:list] = l
+        banner
+      end
+
+      opts.on('-s','--switch','Initiate switch logic') do |s|
+        options[:switch] = s
+      end
+
+    end
+
+    opt_parse.parse!(args)
+    if options == {}
+      puts 'Usage: switchcreds -s (try -h, --help for more info)'.colorize(:default)
+      exit
+    end
+    return options
+  end
+end
+
+options = ParseOpts.parse(ARGV)
+
+if options[:list]
+  puts "Your available AWS credentials:".colorize(:green)
+  creds = SwitchCreds::get_creds()
+  creds.each do |file|
+    puts "\t- #{file}"
+  end
+end
+
+if options[:switch]
+  SwitchCreds::switch_creds
+end
