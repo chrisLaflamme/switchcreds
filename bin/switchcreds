@@ -39,7 +39,6 @@ class ParseOpts
 
       opts.on('-l','--list','List available AWS credentials files') do |l|
         options[:list] = l
-        banner
       end
 
       opts.on('-s','--switch','Initiate switch logic') do |s|
