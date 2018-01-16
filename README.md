@@ -33,18 +33,7 @@ $ switchcreds -s
 ```
 You should see:
 ```
-==========================================================================================================================================================
-==      ===  ====  ====  ==    ==        ====     ===  ====  =======        ====    =========  ====  ====  ==  ====  ==    ====     ===  ====  ===      ==
-=  ====  ==  ====  ====  ===  ======  ======  ===  ==  ====  ==========  ======  ==  ========  ====  ====  ==  ====  ===  ====  ===  ==  ====  ==  ====  =
-=  ====  ==  ====  ====  ===  ======  =====  ========  ====  ==========  =====  ====  =======  ====  ====  ==  ====  ===  ===  ========  ====  ==  ====  =
-==  =======  ====  ====  ===  ======  =====  ========  ====  ==========  =====  ====  =======  ====  ====  ==  ====  ===  ===  ========  ====  =======  ==
-====  =====   ==    ==  ====  ======  =====  ========        ==========  =====  ====  =======   ==    ==  ===        ===  ===  ========        ======  ===
-======  ====  ==    ==  ====  ======  =====  ========  ====  ==========  =====  ====  ========  ==    ==  ===  ====  ===  ===  ========  ====  =====  ====
-=  ====  ===  ==    ==  ====  ======  =====  ========  ====  ==========  =====  ====  ========  ==    ==  ===  ====  ===  ===  ========  ====  ===========
-=  ====  ====    ==    =====  ======  ======  ===  ==  ====  ==========  ======  ==  ==========    ==    ====  ====  ===  ====  ===  ==  ====  =====  ====
-==      ======  ====  =====    =====  =======     ===  ====  ==========  =======    ============  ====  =====  ====  ==    ====     ===  ====  =====  ====
-==========================================================================================================================================================
-
+CHOOSE FROM BELOW:
 
 	0: personal1
 	1: company1
@@ -57,23 +46,19 @@ $ 1
 * Using COMPANY1 creds now *
 ********************************
 ```
-If you have the AWS CLI installed your creds can verified by running the following and comparing what returns with what S3 buckets you know to be in the account:
-```
-$ aws s3 ls
-2017-XX-XX 17:44:20 pickles-the-drummer
-2017-XX-XX 17:44:20 doodley-doo
-2017-XX-XX 16:47:10 ding-dong-doodley-doodley-doo
-```
+You are now interacting with your Company1 AWS account via command line and SDK calls unless otherwise overridden.
 
 ## Development
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+<!-- TODO: add tests so this section is real.
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment. -->
+
+To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org) using `gem push switchcreds-x.x.x.gem`.
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/chrisLaflamme/switch-creds.
+All bug reports and updates are welcome to be submitted to https://github.com/chrisLaflamme/switch-creds.  
 
 ## License
 
