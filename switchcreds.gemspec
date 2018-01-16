@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["chrislaflamme1@gmail.com"]
 
   spec.summary       = %q{Allows switching between Amazon Web Services (AWS) accounts via command line. Mac, Windows, and Linux supported.}
-  spec.description   = %q{SwitchCreds is a simple gem that allows you to switch back and forth between different Amazon Web Services (AWS) accounts via the command line.  This is achieved by automatically updating your ~/.aws/credentials file to point your AWS Command Line Interface (CLI) and AWS Software Development Kit (SDK) calls to the appropriate account. Only Mac supported at this time.}
+  spec.description   = %q{SwitchCreds is a simple gem that allows you to switch back and forth between different Amazon Web Services (AWS) accounts via the command line.  This is achieved by automatically updating your ~/.aws/credentials file to point your AWS Command Line Interface (CLI) and AWS Software Development Kit (SDK) calls to the appropriate account.}
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
