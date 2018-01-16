@@ -4,8 +4,10 @@ require "os"
 module SwitchCreds
   def self.get_creds
     # detect the OS and user to find the .aws directory
-    if OS.mac? || OS.linux?
+    if OS.mac?
       $user = Dir.home[7, Dir.home.length].to_s
+    elsif OS.linux?
+      $user = Dir.home[6, Dir.home.length].to_s
     elsif OS.windows?
       $user = Dir.home[9, Dir.home.length].to_s
     else
