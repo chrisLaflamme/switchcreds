@@ -3,6 +3,7 @@ require 'switchcreds'
 require 'colorize'
 require 'optparse'
 require 'pp'
+require 'fileutils'
 
 class ParseOpts
   def self.banner
@@ -24,12 +25,7 @@ class ParseOpts
     options = {}
 
     opt_parse = OptionParser.new do |opts|
-      opts.banner = "Usage:   switchcreds [config_file_to_switch_to]\nOptions: switchcreds [options]"
-
-      opts.on('-v','--version','Prints the current version of switchcreds') do |v|
-        puts SwitchCreds::VERSION.colorize(:default)
-        exit
-      end
+      opts.banner = "Usage:   switchcreds -s\nOptions: switchcreds [options]"
 
       opts.on('-h','--help','Shows help') do
         banner
@@ -43,6 +39,15 @@ class ParseOpts
 
       opts.on('-s','--switch','Initiate switch logic') do |s|
         options[:switch] = s
+      end
+
+      opts.on('-v','--version','Prints the current version of switchcreds') do |v|
+        puts SwitchCreds::VERSION.colorize(:default)
+        exit
+      end
+
+      opts.on('-w','--which','Displays creds currently in use') do |w|
+        options[:which] = w
       end
 
     end
@@ -68,4 +73,8 @@ end
 
 if options[:switch]
   SwitchCreds::switch_creds
+end
+
+if options[:which]
+  SwitchCreds::which_creds()
 end

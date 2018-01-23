@@ -3,7 +3,7 @@ require "os"
 
 module SwitchCreds
   def self.get_creds
-    # detect the OS and user to find the .aws directory
+    # detect the OS and user to find the .aws/ directory
     if OS.mac?
       $user = Dir.home[7, Dir.home.length].to_s
     elsif OS.linux?
@@ -11,7 +11,7 @@ module SwitchCreds
     elsif OS.windows?
       $user = Dir.home[9, Dir.home.length].to_s
     else
-      puts "ERROR:".colorize(:red) + " Neither WINDOWS nor MAC OS detected.\n Unable to proceed."
+      puts "ERROR:".colorize(:red) + " Neither WINDOWS, MAC, nor LINUX OS detected.\n Unable to proceed."
     end
     dir = Dir.entries("/Users/#{$user}/.aws")
     creds = []
@@ -44,7 +44,7 @@ module SwitchCreds
     puts "\n"
   end
 
-  def which_creds
+  def self.which_creds
     creds = get_creds
     creds.each do |cred|
       if FileUtils.compare_file("/Users/#{$user}/.aws/credentials", "/Users/#{$user}/.aws/credentials_#{cred}")
