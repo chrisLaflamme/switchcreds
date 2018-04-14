@@ -64,7 +64,7 @@ Push the `.gem` file to [rubygems.org](https://rubygems.org) using the correct v
 
 ## Contributing
 
-All bug reports and updates are welcome to be submitted to https://github.com/chrisLaflamme/switch-creds.  
+In the very likely scenario I've screwed something up or if you want to make improvements, it would be wicked awesome if you sent bug reports and updates to [the SwitchCreds repo](https://github.com/chrisLaflamme/switchcreds).
 
 ## License
 
