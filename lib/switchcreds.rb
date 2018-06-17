@@ -2,11 +2,36 @@ require 'switchcreds/version'
 require 'os'
 
 module SwitchCreds
-  # def self.init_creds
-  #   // 
-  #   //
-  #   //
-  # end
+  def self.init_creds
+    # create a different 'credentials_' file for each cred set in credentials
+    user = detect_user
+    default_creds_path = "/Users/#{user}/.aws/credentials"
+    default_creds_dir = "/Users/#{user}/.aws/"
+  
+    # TODO: implement a raise unless File.file?(default_creds_path)
+    default_creds = IO.readlines("/Users/#{user}/.aws/credentials")
+  
+    pp default_creds
+    # find each [] and touch a credentials_ file with that name
+    # and populate with respective keys
+    default_creds.each do |line|
+      if line.include?('[' && ']')
+        profile_name = line.to_s
+        profile_index = default_creds.find_index(profile_name)
+        # remove beginning and trailing square brackets
+          # TODO: switch this regex to only remove '[]'
+        clean_profile_name = profile_name.strip.slice(1..(profile_name.length - 3))
+        out_file = File.open("#{default_creds_dir}credentials_#{clean_profile_name}", 'w')
+        open(out_file, 'w') do |f| # TODO: look into why using 'open' is a security risk
+          f << profile_name
+          f << "#{default_creds[profile_index + 1]}"
+          f << "#{default_creds[profile_index + 2]}"
+        end
+      else
+        puts profile_name.to_s.colorize(:red)
+      end
+    end
+  end
 
   def self.get_creds
     # detect the OS and user to find the .aws/ directory
